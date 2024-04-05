@@ -5,9 +5,22 @@ import {
 import {
   SafeAreaView,
   View,
+  ScrollView,
 } from 'react-native';
 
-import { COLORS } from '../constants';
+import {
+  COLORS,
+  SIZES,
+  icons,
+  images,
+} from '../constants';
+
+import {
+  Nearbyjobs,
+  Popularjobs,
+  ScreenHeaderBtn,
+  Welcome,
+} from '../components';
 
 const Home = () => {
   const router = useRouter();
@@ -25,7 +38,35 @@ const Home = () => {
             backgroundColor:
               COLORS.lightWhite,
           },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.menu}
+              dimension="60%"
+            />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn
+              iconUrl={images.profile}
+              dimension="60%"
+            />
+          ),
+          headerTitle: '',
         }}></Stack.Screen>
+      <ScrollView
+        showsVerticalScrollIndicator={
+          false
+        }>
+        <View
+          style={{
+            flex: 1,
+            padding: SIZES.medium,
+          }}>
+          <Welcome />
+          <Popularjobs />
+          <Nearbyjobs />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
