@@ -1,7 +1,4 @@
-import React, {
-  useCallback,
-  useState,
-} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -13,40 +10,23 @@ import {
 import { useRouter } from 'expo-router';
 
 import styles from './welcome.style';
-import {
-  SIZES,
-  icons,
-} from '../../../constants';
+import { SIZES, icons } from '../../../constants';
 
-const jobType = [
-  'Full-time',
-  'Part-time',
-  'Contractor',
-];
+const jobType = ['Full-time', 'Part-time', 'Contractor'];
 
 const Welcome = () => {
   const router = useRouter();
-  const [
-    activeJobType,
-    setActiveJobType,
-  ] = useState('Full-time');
+  const [activeJobType, setActiveJobType] = useState('Full-time');
 
   const handleRenderItem = useCallback(
     ({ item }) => (
       <TouchableOpacity
-        style={styles.tab(
-          activeJobType,
-          item
-        )}
+        style={styles.tab(activeJobType, item)}
         onPress={() => {
           setActiveJobType(item);
           router.push(`/search/${item}`);
         }}>
-        <Text
-          style={styles.tabText(
-            activeJobType,
-            item
-          )}>
+        <Text style={styles.tabText(activeJobType, item)}>
           {item}
         </Text>
       </TouchableOpacity>
@@ -57,19 +37,14 @@ const Welcome = () => {
   return (
     <View>
       <View style={styles.component}>
-        <Text style={styles.userName}>
-          HEllo Name_Here
-        </Text>
-        <Text
-          style={styles.welcomeMessage}>
+        <Text style={styles.userName}>HEllo Name_Here</Text>
+        <Text style={styles.welcomeMessage}>
           Find your perfect job
         </Text>
       </View>
 
-      <View
-        style={styles.searchContainer}>
-        <View
-          style={styles.searchWrapper}>
+      <View style={styles.searchContainer}>
+        <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
             value=""
