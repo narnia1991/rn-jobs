@@ -3,6 +3,11 @@
 This is a project based on [`JSMastery's Video`](https://www.youtube.com/watch?v=mJ3bGvy0WAY) to build a mobile job search functionality.
 I tweaked some components based on what I thought is right but mostly just coded along the video. 
 
+Tweaked stuff: 
+- Added an image wrapper so we don't need to do the checkImageURL everytime we fetch an image
+- Created a dynamic fetch so we can reuse the useFetch in the search component
+- Added default React JS query in the JobType tabs.
+
 ## 🚀 How to use
 
 You can clone this one and create a .env file containing `EXPO_PUBLIC_RAPID_API_KEY=rapidapikeyhere`
