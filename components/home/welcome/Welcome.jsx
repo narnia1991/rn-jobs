@@ -24,7 +24,9 @@ const Welcome = ({ searchTerm, setSearchTerm, handleSearch }) => {
         style={styles.tab(activeJobType, item)}
         onPress={() => {
           setActiveJobType(item);
-          router.push(`/search/${item}`);
+          router.push(
+            `/search/${item} ${searchTerm.length ? searchTerm : 'ReactJS'}`
+          );
         }}>
         <Text style={styles.tabText(activeJobType, item)}>
           {item}
