@@ -34,8 +34,8 @@ const Tabs = ({ tabArray, activeTab, setActiveTab }) => {
         keyExtractor={(key) => key}
         contentContainerStyle={{
           columnGap: SIZES.small / 2,
-        }}></FlatList>
-      <Text>Tabs</Text>
+        }}
+      />
     </View>
   );
 };

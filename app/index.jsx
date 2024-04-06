@@ -1,19 +1,6 @@
-import {
-  Stack,
-  useRouter,
-} from 'expo-router';
-import {
-  SafeAreaView,
-  View,
-  ScrollView,
-} from 'react-native';
-
-import {
-  COLORS,
-  SIZES,
-  icons,
-  images,
-} from '../constants';
+import { Stack, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { SafeAreaView, View, ScrollView } from 'react-native';
 
 import {
   Nearbyjobs,
@@ -21,29 +8,32 @@ import {
   ScreenHeaderBtn,
   Welcome,
 } from '../components';
+import { COLORS, SIZES, icons, images } from '../constants';
 
 const Home = () => {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = () => {
+    if (searchTerm) {
+      router.push(`/search/${searchTerm}`);
+    }
+  };
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor:
-          COLORS.lightWhite,
+        backgroundColor: COLORS.lightWhite,
       }}>
       <Stack.Screen
         options={{
           headerStyle: {
-            backgroundColor:
-              COLORS.lightWhite,
+            backgroundColor: COLORS.lightWhite,
           },
           headerShadowVisible: false,
           headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.menu}
-              dimension="60%"
-            />
+            <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
           ),
           headerRight: () => (
             <ScreenHeaderBtn
@@ -52,17 +42,19 @@ const Home = () => {
             />
           ),
           headerTitle: '',
-        }}></Stack.Screen>
-      <ScrollView
-        showsVerticalScrollIndicator={
-          false
-        }>
+        }}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             flex: 1,
             padding: SIZES.medium,
           }}>
-          <Welcome />
+          <Welcome
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleSearch={handleSearch}
+          />
           <Popularjobs />
           <Nearbyjobs />
         </View>

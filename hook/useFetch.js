@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const useFetch = ({ params, endpoint = 'search' }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const options = {
+  const defaultOptions = {
     method: 'GET',
     url: `https://jsearch.p.rapidapi.com/${endpoint}`,
     headers: {
@@ -16,7 +16,7 @@ const useFetch = ({ params, endpoint = 'search' }) => {
     params,
   };
 
-  const fetchData = async () => {
+  const fetchData = async (options) => {
     setIsLoading(true);
     try {
       const response = await axios.request(options);
@@ -30,11 +30,16 @@ const useFetch = ({ params, endpoint = 'search' }) => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(defaultOptions);
   }, []);
 
   const refetch = () => {
-    fetchData();
+    fetchData(defaultOptions);
+  };
+
+  const dynamicFetch = (options) => {
+    const newOptions = { ...defaultOptions, ...options };
+    fetchData(newOptions);
   };
 
   return {
@@ -42,6 +47,7 @@ const useFetch = ({ params, endpoint = 'search' }) => {
     isLoading,
     error,
     refetch,
+    dynamicFetch,
   };
 };
 

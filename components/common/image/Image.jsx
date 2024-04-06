@@ -1,3 +1,7 @@
+import { Image } from 'react-native';
+
+import { checkImageURL } from '../../../utils';
+
 const CImage = ({ imgURL, style }) => (
   <Image
     source={{

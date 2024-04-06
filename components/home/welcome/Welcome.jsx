@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import {
   View,
@@ -7,14 +8,13 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 
 import styles from './welcome.style';
 import { SIZES, icons } from '../../../constants';
 
 const jobType = ['Full-time', 'Part-time', 'Contractor'];
 
-const Welcome = () => {
+const Welcome = ({ searchTerm, setSearchTerm, handleSearch }) => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState('Full-time');
 
@@ -37,7 +37,7 @@ const Welcome = () => {
   return (
     <View>
       <View style={styles.component}>
-        <Text style={styles.userName}>HEllo Name_Here</Text>
+        <Text style={styles.userName}>Hello Name_Here</Text>
         <Text style={styles.welcomeMessage}>
           Find your perfect job
         </Text>
@@ -47,14 +47,14 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=""
-            onChange={() => {}}
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             placeholder="what are you looking for?"
           />
         </View>
         <TouchableOpacity
           style={styles.searchBtn}
-          onPress={() => {}}>
+          onPress={handleSearch}>
           <Image
             source={icons.search}
             resizeMode="contain"

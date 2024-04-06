@@ -1,4 +1,5 @@
-import React from 'react';
+import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -7,7 +8,6 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
-import { Stack, useRouter, useSearchParams } from 'expo-router';
 
 import {
   Company,
@@ -23,7 +23,7 @@ import useFetch from '../../hook/useFetch';
 const tabs = ['About', 'Qualifications', 'Responsibilities'];
 
 const JobDetails = () => {
-  const params = useSearchParams();
+  const params = useLocalSearchParams();
   const router = useRouter();
 
   const { data, isLoading, error, refetch } = useFetch({
@@ -37,20 +37,35 @@ const JobDetails = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const onRefresh = () => {
+    setRefreshing(true);
     refetch();
+    setRefreshing(false);
   };
 
-  const displayTabContent = ({ activeTab }) => {
+  const displayTabContent = () => {
     switch (activeTab) {
       case tabs[0]:
+        return (
+          <JobAbout
+            info={data[0].job_description ?? 'No data provided'}
+          />
+        );
       case tabs[1]:
         return (
           <Specifics
             title={tabs[1]}
-            points={data[0].job_highlights?.qualifications ?? 'N/A'}
+            points={data[0].job_highlights?.Qualifications ?? 'N/A'}
           />
         );
       case tabs[2]:
+        return (
+          <Specifics
+            title={tabs[2]}
+            points={
+              data[0].job_highlights?.Responsibilities ?? 'N/A'
+            }
+          />
+        );
       default:
         break;
     }
@@ -75,18 +90,20 @@ const JobDetails = () => {
             <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
           ),
         }}
-        headerTitle=""></Stack.Screen>
+        headerTitle=""
+      />
       <>
         <ScrollView
           showsVerticalScrollIndicator="false"
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
-              onRefresh={onRefresh}></RefreshControl>
+              onRefresh={onRefresh}
+            />
           }>
-          {isLoading ? (
+          {isLoading || refreshing ? (
             <ActivityIndicator
-              size={'large'}
+              size="large"
               colors={COLORS.primary}
             />
           ) : error ? (
@@ -114,6 +131,12 @@ const JobDetails = () => {
             </View>
           )}
         </ScrollView>
+        <JobFooter
+          url={
+            data[0]?.job_google_link ??
+            'https://careers.google.com/jobs/results'
+          }
+        />
       </>
     </SafeAreaView>
   );
