@@ -49,8 +49,6 @@ const JobSearch = () => {
     handleSearch();
   }, []);
 
-  console.log(data);
-
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>

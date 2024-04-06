@@ -37,7 +37,7 @@ const Welcome = ({ searchTerm, setSearchTerm, handleSearch }) => {
   return (
     <View>
       <View style={styles.component}>
-        <Text style={styles.userName}>Hello Name_Here</Text>
+        <Text style={styles.userName}>Hello Narnia</Text>
         <Text style={styles.welcomeMessage}>
           Find your perfect job
         </Text>

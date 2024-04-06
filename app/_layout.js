@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font';
 import * as SplashSreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 
-SplashSreen.preventAutoHideAsync();
+// SplashSreen.preventAutoHideAsync();
 
 const Layout = () => {
   const [fontsLoaded] = useFonts({
@@ -12,20 +12,20 @@ const Layout = () => {
     DMRegular: require('../assets/fonts/DMSans-Regular.ttf'),
   });
 
-  const onLayoutRootView =
-    useCallback(async () => {
-      if (fontsLoaded) {
-        await SplashSreen.hideAsync();
-      }
-    }, [fontsLoaded]);
+  // const onLayoutRootView =
+  //   useCallback(async () => {
+  //     if (fontsLoaded) {
+  //       await SplashSreen.hideAsync();
+  //     }
+  //   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
     return null;
   }
-
   return (
-    <Stack
-      onLayout={onLayoutRootView}></Stack>
+    <Stack initialRouteName="home">
+      <Stack.Screen name="home" />
+    </Stack>
   );
 };
 
